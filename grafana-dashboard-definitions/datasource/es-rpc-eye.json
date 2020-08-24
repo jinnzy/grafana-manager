@@ -1,0 +1,30 @@
+{
+  "orgId":1,
+  "name":"rpc-eye",
+  "type":"elasticsearch",
+  "typeLogoUrl":"",
+  "access":"proxy",
+  "url":"{{ES_URL}}",
+  "password":"",
+  "user":"",
+  "database":"rpc-*",
+  "basicAuth":true,
+  "basicAuthUser":"{{ES_URL}}",
+  "basicAuthPassword":"",
+  "withCredentials":false,
+  "isDefault":false,
+  "jsonData":{
+    "esVersion":70,
+    "logLevelField":"",
+    "logMessageField":"",
+    "maxConcurrentShardRequests":5,
+    "timeField":"stamp"
+  },
+  "secureJsonFields":{
+    "basicAuthPassword":false
+  },
+  "secureJsonData":{
+    "basicAuthPassword":"{{ES_PASSWORD}}"
+  },
+  "readOnly":false
+}

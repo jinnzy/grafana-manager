@@ -1,0 +1,30 @@
+{
+  "orgId":1,
+  "name":"biz-sql-stat",
+  "type":"elasticsearch",
+  "typeLogoUrl":"",
+  "access":"proxy",
+  "url":"{{ES_URL}}",
+  "password":"",
+  "user":"",
+  "database":"biz-sql-stat*",
+  "basicAuth":true,
+  "basicAuthUser":"{{ES_USER}}",
+  "basicAuthPassword":"",
+  "withCredentials":false,
+  "isDefault":false,
+  "jsonData":{
+    "esVersion":70,
+    "logLevelField":"",
+    "logMessageField":"",
+    "maxConcurrentShardRequests":5,
+    "timeField":"createTime"
+  },
+  "secureJsonFields":{
+    "basicAuthPassword":false
+  },
+  "readOnly":false,
+  "secureJsonData":{
+    "basicAuthPassword":"{{ES_PASSWORD}}"
+  }
+}

@@ -1,0 +1,3892 @@
+{
+  "annotations": {
+    "list": [
+      {
+        "builtIn": 1,
+        "datasource": "-- Grafana --",
+        "enable": true,
+        "hide": true,
+        "iconColor": "rgba(0, 211, 255, 1)",
+        "name": "Annotations & Alerts",
+        "type": "dashboard"
+      }
+    ]
+  },
+  "description": "",
+  "editable": true,
+  "gnetId": null,
+  "graphTooltip": 1,
+  "id": 19,
+  "iteration": 1594108736912,
+  "links": [],
+  "panels": [
+    {
+      "collapsed": false,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 0
+      },
+      "id": 49,
+      "panels": [],
+      "title": "集群",
+      "type": "row"
+    },
+    {
+      "content": "<div style=\"text-align:center;font-size:2em;\">\n<b style=\"color:#5991A7;\">集群:</b> <span style=\"color:#e68a00;\">$cluster</span>\n</div>\n",
+      "datasource": null,
+      "gridPos": {
+        "h": 2,
+        "w": 24,
+        "x": 0,
+        "y": 1
+      },
+      "id": 24,
+      "mode": "html",
+      "timeFrom": null,
+      "timeShift": null,
+      "title": "",
+      "type": "text"
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "10.x为管理系节点内存大于2g可以忽略\n\n忽略以下节点：\n\n5.17-5.56(crm专用节点)\n\n5.201-5.206(master节点)\n\n5.77-5.79(ingress节点)",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 0,
+        "y": 3
+      },
+      "hiddenSeries": false,
+      "id": 51,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "node_memory_MemAvailable_bytes{job=~\"$cluster.*\",host!~\"172.17.5.((1[7-9]|2[0-9]|3[0-9]|4[0-9]|5[1-6])|20[1-6]|7[7-9])\"}  < 5368709120",
+          "interval": "2m",
+          "legendFormat": "{{host}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "当前集群可用内存小于5g的节点",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "description": "",
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 8,
+        "w": 12,
+        "x": 12,
+        "y": 3
+      },
+      "hiddenSeries": false,
+      "id": 53,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideEmpty": false,
+        "hideZero": false,
+        "max": false,
+        "min": false,
+        "rightSide": false,
+        "show": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "percentage": false,
+      "pointradius": 2,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "topk(5, ceil(delta(kube_pod_container_status_restarts_total[15m]) > 0))",
+          "interval": "",
+          "legendFormat": "{{pod}} / {{job}}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "15分钟内有重启的应用",
+      "tooltip": {
+        "shared": true,
+        "sort": 0,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 11
+      },
+      "hiddenSeries": false,
+      "id": 2,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "hideEmpty": true,
+        "hideZero": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "topk(5, node_load1{job=~\"$cluster-node-exporter\"})",
+          "format": "time_series",
+          "hide": false,
+          "interval": "",
+          "intervalFactor": 1,
+          "legendFormat": "{{ host }}",
+          "refId": "A"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "宿主机 CPU 负载（$cluster ）",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 20
+      },
+      "hiddenSeries": false,
+      "id": 21,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "topk(5,sum(rate(container_cpu_usage_seconds_total{container=~\".+\",job=~\"$cluster-node-cadvisor-metrics\"}[$interval]))  by (pod))",
+          "format": "time_series",
+          "interval": "2m",
+          "intervalFactor": 1,
+          "legendFormat": "{{pod}}",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "应用CPU使用 排行榜（$cluster）",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "short",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "aliasColors": {},
+      "bars": false,
+      "dashLength": 10,
+      "dashes": false,
+      "datasource": null,
+      "fill": 1,
+      "fillGradient": 0,
+      "gridPos": {
+        "h": 9,
+        "w": 24,
+        "x": 0,
+        "y": 29
+      },
+      "hiddenSeries": false,
+      "id": 22,
+      "legend": {
+        "alignAsTable": true,
+        "avg": false,
+        "current": true,
+        "max": false,
+        "min": false,
+        "rightSide": true,
+        "show": true,
+        "sort": "current",
+        "sortDesc": true,
+        "total": false,
+        "values": true
+      },
+      "lines": true,
+      "linewidth": 1,
+      "links": [],
+      "nullPointMode": "null",
+      "options": {
+        "dataLinks": []
+      },
+      "paceLength": 10,
+      "percentage": false,
+      "pointradius": 5,
+      "points": false,
+      "renderer": "flot",
+      "seriesOverrides": [
+        {
+          "alias": "prometheus-k8s-0",
+          "yaxis": 2
+        }
+      ],
+      "spaceLength": 10,
+      "stack": false,
+      "steppedLine": false,
+      "targets": [
+        {
+          "expr": "topk(5,sum(container_memory_working_set_bytes{container=~\".+\",job=~\"$cluster-node-cadvisor-metrics\"}) by (pod))",
+          "format": "time_series",
+          "interval": "2m",
+          "intervalFactor": 1,
+          "legendFormat": "{{pod}}",
+          "refId": "B"
+        }
+      ],
+      "thresholds": [],
+      "timeFrom": null,
+      "timeRegions": [],
+      "timeShift": null,
+      "title": "应用 内存 使用（$cluster）",
+      "tooltip": {
+        "shared": true,
+        "sort": 2,
+        "value_type": "individual"
+      },
+      "type": "graph",
+      "xaxis": {
+        "buckets": null,
+        "mode": "time",
+        "name": null,
+        "show": true,
+        "values": []
+      },
+      "yaxes": [
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        },
+        {
+          "format": "bytes",
+          "label": null,
+          "logBase": 1,
+          "max": null,
+          "min": null,
+          "show": true
+        }
+      ],
+      "yaxis": {
+        "align": false,
+        "alignLevel": null
+      }
+    },
+    {
+      "collapsed": true,
+      "datasource": null,
+      "gridPos": {
+        "h": 1,
+        "w": 24,
+        "x": 0,
+        "y": 38
+      },
+      "id": 47,
+      "panels": [
+        {
+          "content": "<div style=\"text-align:center;font-size:2em;\">\n<b style=\"color:#5991A7;\">宿主机:</b> <span style=\"color:#e68a00;\">$host</span>\n</div>\n",
+          "datasource": null,
+          "gridPos": {
+            "h": 2,
+            "w": 24,
+            "x": 0,
+            "y": 39
+          },
+          "id": 25,
+          "mode": "html",
+          "timeFrom": null,
+          "timeShift": null,
+          "title": "",
+          "type": "text"
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 0,
+            "y": 41
+          },
+          "hiddenSeries": false,
+          "id": 27,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "paceLength": 10,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "node_load1{host=~\"$host\"}",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "1分钟",
+              "refId": "A"
+            },
+            {
+              "expr": "node_load5{host=~\"$host\"}",
+              "legendFormat": "5分钟",
+              "refId": "B"
+            },
+            {
+              "expr": "node_load15{host=~\"$host\"}",
+              "legendFormat": "15分钟",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "CPU 平均负载（Load）",
+          "tooltip": {
+            "shared": false,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fill": 1,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 12,
+            "y": 41
+          },
+          "hiddenSeries": false,
+          "id": 29,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "paceLength": 10,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "总内存",
+              "color": "#E02F44",
+              "fill": 0,
+              "linewidth": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "node_memory_MemTotal_bytes{host=\"$host\"} - node_memory_MemAvailable_bytes{host=\"$host\"}",
+              "interval": "",
+              "legendFormat": "已使用",
+              "refId": "A"
+            },
+            {
+              "expr": "node_memory_MemTotal_bytes{host=\"$host\"}",
+              "interval": "",
+              "legendFormat": "总内存",
+              "refId": "B"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "内存使用量",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": "0",
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 0,
+            "y": 48
+          },
+          "hiddenSeries": false,
+          "id": 31,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "paceLength": 10,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": true,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum(rate(node_cpu_seconds_total{host=~\"$host\",mode!=\"idle\"}[$interval]))  by (mode) \r",
+              "legendFormat": "{{mode}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "CPU使用",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 7,
+            "w": 12,
+            "x": 12,
+            "y": 48
+          },
+          "hiddenSeries": false,
+          "id": 33,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "paceLength": 10,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "total",
+              "color": "#C4162A",
+              "linewidth": 2,
+              "yaxis": 2
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "topk(5,sum(container_memory_working_set_bytes{container=~\".+\", host=\"$host\"}) by (pod))",
+              "interval": "",
+              "legendFormat": "{{pod}}",
+              "refId": "C"
+            },
+            {
+              "expr": "sum(container_memory_working_set_bytes{container=~\".+\", host=\"$host\"})",
+              "interval": "",
+              "legendFormat": "total",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "内存使用（按应用）",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "bytes",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {},
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 55
+          },
+          "hiddenSeries": false,
+          "id": 35,
+          "legend": {
+            "alignAsTable": false,
+            "avg": false,
+            "current": false,
+            "max": false,
+            "min": false,
+            "rightSide": false,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "paceLength": 10,
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "sum(rate(container_cpu_usage_seconds_total{container=~\".+\", host=~\"$host\"}[$interval]))  by (pod) \r",
+              "interval": "",
+              "legendFormat": "{{pod}}",
+              "refId": "A"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "CPU使用（按应用）",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {
+            "vda": "#6ED0E0"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "description": "Read time ms 每个磁盘分区读操作花费的秒数\n\nWrite time ms 每个磁盘分区写操作花费的秒数\n\nIO time ms 每个磁盘分区输入/输出操作花费的秒数\n\nIO time weighted 每个磁盘分区输入/输出操作花费的加权秒数",
+          "fill": 3,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 55
+          },
+          "height": "300",
+          "hiddenSeries": false,
+          "id": 37,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/,*_读取$/",
+              "transform": "negative-Y"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "irate(node_disk_io_time_seconds_total{host=~'$host'}[1m])",
+              "format": "time_series",
+              "hide": true,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{device}}",
+              "refId": "A",
+              "step": 10
+            },
+            {
+              "expr": "irate(node_disk_io_time_weighted_seconds_total{host=~'$host'}[1m])",
+              "format": "time_series",
+              "hide": true,
+              "intervalFactor": 1,
+              "legendFormat": "{{device}}_加权",
+              "refId": "D"
+            },
+            {
+              "expr": "irate(node_disk_read_time_seconds_total{host=~'$host'}[1m])",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{device}}_读取",
+              "refId": "B"
+            },
+            {
+              "expr": "irate(node_disk_write_time_seconds_total{host=~'$host'}[1m])",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 1,
+              "legendFormat": "{{device}}_写入",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "磁盘IO读写时间",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "s",
+              "label": "读取（-）/写入（+）",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {
+            "vda_write": "#6ED0E0"
+          },
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "description": "Reads completed: 每个磁盘分区每秒读完成次数\n\nWrites completed: 每个磁盘分区每秒写完成次数\n\nIO now 每个磁盘分区每秒正在处理的输入/输出请求数",
+          "fill": 2,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 63
+          },
+          "height": "300",
+          "hiddenSeries": false,
+          "id": 39,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "sort": "current",
+            "sortDesc": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/.*_读取$/",
+              "transform": "negative-Y"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "irate(node_disk_reads_completed_total{host=~'$host'}[1m])",
+              "format": "time_series",
+              "hide": false,
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{device}}_读取",
+              "refId": "A",
+              "step": 10
+            },
+            {
+              "expr": "irate(node_disk_writes_completed_total{host=~'$host'}[1m])",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 2,
+              "legendFormat": "{{device}}_写入",
+              "refId": "B",
+              "step": 10
+            },
+            {
+              "expr": "node_disk_io_now{host=~'$host'}",
+              "format": "time_series",
+              "hide": true,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "{{device}}",
+              "refId": "C"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "磁盘读写速率（IOPS）",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "iops",
+              "label": "读取（-）/写入（+）I/O ops/sec",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {
+            "TCP": "#6ED0E0"
+          },
+          "bars": false,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "description": "CurrEstab - 当前状态为 ESTABLISHED 或 CLOSE-WAIT 的 TCP 连接数\n\nActiveOpens - 已从 CLOSED 状态直接转换到 SYN-SENT 状态的 TCP 平均连接数(1分钟内)\n\nPassiveOpens - 已从 LISTEN 状态直接转换到 SYN-RCVD 状态的 TCP 平均连接数(1分钟内)\n\nTCP_alloc - 已分配（已建立、已申请到sk_buff）的TCP套接字数量\n\nTCP_inuse - 正在使用（正在侦听）的TCP套接字数量\n\nTCP_tw - 等待关闭的TCP连接数",
+          "fill": 0,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 63
+          },
+          "height": "300",
+          "hiddenSeries": false,
+          "id": 41,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": true,
+            "max": true,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": true
+          },
+          "lines": true,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "node_netstat_Tcp_CurrEstab{host=~'$host'}",
+              "format": "time_series",
+              "hide": false,
+              "interval": "10s",
+              "intervalFactor": 1,
+              "legendFormat": "ESTABLISHED",
+              "refId": "A",
+              "step": 20
+            },
+            {
+              "expr": "node_sockstat_TCP_tw{host=~'$host'}",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "TCP_tw",
+              "refId": "D"
+            },
+            {
+              "expr": "irate(node_netstat_Tcp_ActiveOpens{host=~'$host'}[1m])",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 1,
+              "legendFormat": "ActiveOpens",
+              "refId": "B"
+            },
+            {
+              "expr": "irate(node_netstat_Tcp_PassiveOpens{host=~'$host'}[1m])",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "PassiveOpens",
+              "refId": "C"
+            },
+            {
+              "expr": "node_sockstat_TCP_alloc{host=~'$host'}",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "TCP_alloc",
+              "refId": "E"
+            },
+            {
+              "expr": "node_sockstat_TCP_inuse{host=~'$host'}",
+              "format": "time_series",
+              "intervalFactor": 1,
+              "legendFormat": "TCP_inuse",
+              "refId": "F"
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "TCP 连接情况",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "aliasColors": {
+            "vda_write": "#6ED0E0"
+          },
+          "bars": true,
+          "dashLength": 10,
+          "dashes": false,
+          "datasource": null,
+          "description": "Read bytes 每个磁盘分区每秒读取的比特数\nWritten bytes 每个磁盘分区每秒写入的比特数",
+          "fill": 2,
+          "fillGradient": 0,
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 0,
+            "y": 71
+          },
+          "height": "300",
+          "hiddenSeries": false,
+          "id": 43,
+          "legend": {
+            "alignAsTable": true,
+            "avg": false,
+            "current": false,
+            "hideEmpty": true,
+            "hideZero": true,
+            "max": false,
+            "min": false,
+            "rightSide": true,
+            "show": true,
+            "total": false,
+            "values": false
+          },
+          "lines": false,
+          "linewidth": 1,
+          "links": [],
+          "nullPointMode": "null",
+          "options": {
+            "dataLinks": []
+          },
+          "percentage": false,
+          "pointradius": 5,
+          "points": false,
+          "renderer": "flot",
+          "seriesOverrides": [
+            {
+              "alias": "/.*_读取$/",
+              "transform": "negative-Y"
+            }
+          ],
+          "spaceLength": 10,
+          "stack": false,
+          "steppedLine": false,
+          "targets": [
+            {
+              "expr": "irate(node_disk_read_bytes_total{host=~'$host'}[1m])",
+              "format": "time_series",
+              "interval": "",
+              "intervalFactor": 2,
+              "legendFormat": "{{device}}_读取",
+              "refId": "A",
+              "step": 10
+            },
+            {
+              "expr": "irate(node_disk_written_bytes_total{host=~'$host'}[1m])",
+              "format": "time_series",
+              "hide": false,
+              "intervalFactor": 2,
+              "legendFormat": "{{device}}_写入",
+              "refId": "B",
+              "step": 10
+            }
+          ],
+          "thresholds": [],
+          "timeFrom": null,
+          "timeRegions": [],
+          "timeShift": null,
+          "title": "磁盘读写容量大小",
+          "tooltip": {
+            "shared": true,
+            "sort": 2,
+            "value_type": "individual"
+          },
+          "type": "graph",
+          "xaxis": {
+            "buckets": null,
+            "mode": "time",
+            "name": null,
+            "show": true,
+            "values": []
+          },
+          "yaxes": [
+            {
+              "decimals": null,
+              "format": "Bps",
+              "label": "读取（-）/写入（+）",
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": true
+            },
+            {
+              "format": "short",
+              "label": null,
+              "logBase": 1,
+              "max": null,
+              "min": null,
+              "show": false
+            }
+          ],
+          "yaxis": {
+            "align": false,
+            "alignLevel": null
+          }
+        },
+        {
+          "columns": [],
+          "datasource": null,
+          "fontSize": "120%",
+          "gridPos": {
+            "h": 8,
+            "w": 12,
+            "x": 12,
+            "y": 71
+          },
+          "id": 45,
+          "links": [],
+          "pageSize": null,
+          "scroll": true,
+          "showHeader": true,
+          "sort": {
+            "col": 6,
+            "desc": false
+          },
+          "styles": [
+            {
+              "alias": "分区",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(50, 172, 45, 0.97)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.9)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "mountpoint",
+              "sanitize": false,
+              "thresholds": [
+                ""
+              ],
+              "type": "string",
+              "unit": "bytes"
+            },
+            {
+              "alias": "可用空间",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "Value #A",
+              "thresholds": [
+                "10000000000",
+                "20000000000"
+              ],
+              "type": "number",
+              "unit": "bytes"
+            },
+            {
+              "alias": "使用率",
+              "align": "auto",
+              "colorMode": "cell",
+              "colors": [
+                "rgba(50, 172, 45, 0.97)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(245, 54, 54, 0.9)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "Value #B",
+              "thresholds": [
+                "70",
+                "90"
+              ],
+              "type": "number",
+              "unit": "percentunit"
+            },
+            {
+              "alias": "总空间",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "link": false,
+              "mappingType": 1,
+              "pattern": "Value #C",
+              "thresholds": [],
+              "type": "number",
+              "unit": "bytes"
+            },
+            {
+              "alias": "文件系统",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "link": false,
+              "mappingType": 1,
+              "pattern": "fstype",
+              "thresholds": [],
+              "type": "string",
+              "unit": "short"
+            },
+            {
+              "alias": "",
+              "align": "auto",
+              "colorMode": null,
+              "colors": [
+                "rgba(245, 54, 54, 0.9)",
+                "rgba(237, 129, 40, 0.89)",
+                "rgba(50, 172, 45, 0.97)"
+              ],
+              "dateFormat": "YYYY-MM-DD HH:mm:ss",
+              "decimals": 2,
+              "mappingType": 1,
+              "pattern": "/.*/",
+              "thresholds": [],
+              "type": "hidden",
+              "unit": "short"
+            }
+          ],
+          "targets": [
+            {
+              "expr": "node_filesystem_size_bytes{host=~'$host',fstype=~\"ext4|xfs\"}",
+              "format": "table",
+              "hide": true,
+              "instant": true,
+              "intervalFactor": 1,
+              "legendFormat": "",
+              "refId": "C"
+            },
+            {
+              "expr": "node_filesystem_avail_bytes{host=~'$host',fstype=~\"ext4|xfs\"}",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "interval": "",
+              "intervalFactor": 1,
+              "legendFormat": "",
+              "refId": "A"
+            },
+            {
+              "expr": "1-(node_filesystem_free_bytes{host=~'$host',fstype=~\"ext4|xfs\"} / node_filesystem_size_bytes{host=~'$host',fstype=~\"ext4|xfs\"})",
+              "format": "table",
+              "hide": false,
+              "instant": true,
+              "intervalFactor": 1,
+              "legendFormat": "",
+              "refId": "B"
+            }
+          ],
+          "title": "各分区可用空间",
+          "transform": "table",
+          "type": "table"
+        }
+      ],
+      "title": "宿主机",
+      "type": "row"
+    }
+  ],
+  "refresh": "1m",
+  "schemaVersion": 22,
+  "style": "dark",
+  "tags": [],
+  "templating": {
+    "list": [
+      {
+        "auto": true,
+        "auto_count": 30,
+        "auto_min": "10s",
+        "current": {
+          "selected": false,
+          "text": "auto",
+          "value": "$__auto_interval_interval"
+        },
+        "hide": 0,
+        "label": null,
+        "name": "interval",
+        "options": [
+          {
+            "selected": true,
+            "text": "auto",
+            "value": "$__auto_interval_interval"
+          },
+          {
+            "selected": false,
+            "text": "1m",
+            "value": "1m"
+          },
+          {
+            "selected": false,
+            "text": "2m",
+            "value": "2m"
+          },
+          {
+            "selected": false,
+            "text": "5m",
+            "value": "5m"
+          },
+          {
+            "selected": false,
+            "text": "10m",
+            "value": "10m"
+          },
+          {
+            "selected": false,
+            "text": "30m",
+            "value": "30m"
+          }
+        ],
+        "query": "1m,2m,5m,10m,30m",
+        "refresh": 2,
+        "skipUrlSync": false,
+        "type": "interval"
+      },
+      {
+        "allValue": "",
+        "current": {
+          "selected": true,
+          "text": "k8s1",
+          "value": "k8s1"
+        },
+        "hide": 0,
+        "includeAll": false,
+        "label": null,
+        "multi": false,
+        "name": "cluster",
+        "options": [
+          {
+            "selected": true,
+            "text": "k8s1",
+            "value": "k8s1"
+          }
+        ],
+        "query": "k8s1",
+        "skipUrlSync": false,
+        "type": "custom"
+      },
+      {
+        "allValue": null,
+        "current": {
+          "tags": [],
+          "text": "10.2.5.202",
+          "value": "10.2.5.202"
+        },
+        "datasource": "prometheus",
+        "definition": "label_values(node_boot_time_seconds{job=~\"$cluster-node-exporter\"}, host)",
+        "hide": 0,
+        "includeAll": false,
+        "index": -1,
+        "label": null,
+        "multi": false,
+        "name": "host",
+        "options": [],
+        "query": "label_values(node_boot_time_seconds{job=~\"$cluster-node-exporter\"}, host)",
+        "refresh": 1,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      },
+      {
+        "allValue": ".*",
+        "current": {
+          "selected": true,
+          "text": "All",
+          "value": "$__all"
+        },
+        "datasource": "thanos-query",
+        "definition": "label_values(jvm_info{job=~\"$cluster-jvm-exporter\"}, app_name)",
+        "hide": 0,
+        "includeAll": true,
+        "index": -1,
+        "label": null,
+        "multi": false,
+        "name": "app",
+        "options": [
+          {
+            "selected": true,
+            "text": "All",
+            "value": "$__all"
+          },
+          {
+            "selected": false,
+            "text": "app-access-control-provider",
+            "value": "app-access-control-provider"
+          },
+          {
+            "selected": false,
+            "text": "async-job-export",
+            "value": "async-job-export"
+          },
+          {
+            "selected": false,
+            "text": "async-job-import",
+            "value": "async-job-import"
+          },
+          {
+            "selected": false,
+            "text": "attachment-search-broker-adapter",
+            "value": "attachment-search-broker-adapter"
+          },
+          {
+            "selected": false,
+            "text": "attachment-search-datamgr-cluster",
+            "value": "attachment-search-datamgr-cluster"
+          },
+          {
+            "selected": false,
+            "text": "attachment-search-datamgr-index",
+            "value": "attachment-search-datamgr-index"
+          },
+          {
+            "selected": false,
+            "text": "attachment-search-datamgr-update",
+            "value": "attachment-search-datamgr-update"
+          },
+          {
+            "selected": false,
+            "text": "auditlog-query-service",
+            "value": "auditlog-query-service"
+          },
+          {
+            "selected": false,
+            "text": "auditlog-service",
+            "value": "auditlog-service"
+          },
+          {
+            "selected": false,
+            "text": "cctrl-center",
+            "value": "cctrl-center"
+          },
+          {
+            "selected": false,
+            "text": "checkins-office-stat-job",
+            "value": "checkins-office-stat-job"
+          },
+          {
+            "selected": false,
+            "text": "checkins-office-v2-server",
+            "value": "checkins-office-v2-server"
+          },
+          {
+            "selected": false,
+            "text": "checkins-office-v2-task",
+            "value": "checkins-office-v2-task"
+          },
+          {
+            "selected": false,
+            "text": "checkins-v2-history",
+            "value": "checkins-v2-history"
+          },
+          {
+            "selected": false,
+            "text": "checkins-v2-task",
+            "value": "checkins-v2-task"
+          },
+          {
+            "selected": false,
+            "text": "client-consumer-log2es",
+            "value": "client-consumer-log2es"
+          },
+          {
+            "selected": false,
+            "text": "cloud-mq-consumer",
+            "value": "cloud-mq-consumer"
+          },
+          {
+            "selected": false,
+            "text": "cloud-mq-proxy",
+            "value": "cloud-mq-proxy"
+          },
+          {
+            "selected": false,
+            "text": "config-web",
+            "value": "config-web"
+          },
+          {
+            "selected": false,
+            "text": "data-auth-service",
+            "value": "data-auth-service"
+          },
+          {
+            "selected": false,
+            "text": "data-auth-worker",
+            "value": "data-auth-worker"
+          },
+          {
+            "selected": false,
+            "text": "datarights-ui",
+            "value": "datarights-ui"
+          },
+          {
+            "selected": false,
+            "text": "db-operation",
+            "value": "db-operation"
+          },
+          {
+            "selected": false,
+            "text": "elastic-job-console",
+            "value": "elastic-job-console"
+          },
+          {
+            "selected": false,
+            "text": "fs-account-statement-admin",
+            "value": "fs-account-statement-admin"
+          },
+          {
+            "selected": false,
+            "text": "fs-account-statement-web",
+            "value": "fs-account-statement-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-ai-detector-provider",
+            "value": "fs-ai-detector-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-apibus-global",
+            "value": "fs-apibus-global"
+          },
+          {
+            "selected": false,
+            "text": "fs-apibus-ncrm",
+            "value": "fs-apibus-ncrm"
+          },
+          {
+            "selected": false,
+            "text": "fs-apibus-paas",
+            "value": "fs-apibus-paas"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-battlereport-assistant-web",
+            "value": "fs-appserver-battlereport-assistant-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-checkins-v2-gray",
+            "value": "fs-appserver-checkins-v2-gray"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-checkins-v2-urgent",
+            "value": "fs-appserver-checkins-v2-urgent"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-comment-web",
+            "value": "fs-appserver-comment-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-holiday-v2",
+            "value": "fs-appserver-holiday-v2"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-holiday-v2-task",
+            "value": "fs-appserver-holiday-v2-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-openproxy-web",
+            "value": "fs-appserver-openproxy-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-payment-task",
+            "value": "fs-appserver-payment-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-payment-web",
+            "value": "fs-appserver-payment-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-pm-bizserver",
+            "value": "fs-appserver-pm-bizserver"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-pm-scheduledtask",
+            "value": "fs-appserver-pm-scheduledtask"
+          },
+          {
+            "selected": false,
+            "text": "fs-appserver-trigger",
+            "value": "fs-appserver-trigger"
+          },
+          {
+            "selected": false,
+            "text": "fs-audit-log-biz",
+            "value": "fs-audit-log-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-biz",
+            "value": "fs-bi-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-custom-statistic-dim-online",
+            "value": "fs-bi-custom-statistic-dim-online"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-custom-statistic-online-calculate",
+            "value": "fs-bi-custom-statistic-online-calculate"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-custom-statistic-paas2bi-transfer",
+            "value": "fs-bi-custom-statistic-paas2bi-transfer"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-export",
+            "value": "fs-bi-export"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-feed2pg-online",
+            "value": "fs-bi-feed2pg-online"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-org",
+            "value": "fs-bi-org"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-permission",
+            "value": "fs-bi-permission"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-provider",
+            "value": "fs-bi-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-refresh",
+            "value": "fs-bi-refresh"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-task",
+            "value": "fs-bi-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-transfer",
+            "value": "fs-bi-transfer"
+          },
+          {
+            "selected": false,
+            "text": "fs-bi-uitype",
+            "value": "fs-bi-uitype"
+          },
+          {
+            "selected": false,
+            "text": "fs-bpm",
+            "value": "fs-bpm"
+          },
+          {
+            "selected": false,
+            "text": "fs-bpm-after-action",
+            "value": "fs-bpm-after-action"
+          },
+          {
+            "selected": false,
+            "text": "fs-bpm-after-action-console",
+            "value": "fs-bpm-after-action-console"
+          },
+          {
+            "selected": false,
+            "text": "fs-bpm-console",
+            "value": "fs-bpm-console"
+          },
+          {
+            "selected": false,
+            "text": "fs-bpm-data-tailer",
+            "value": "fs-bpm-data-tailer"
+          },
+          {
+            "selected": false,
+            "text": "fs-bpm-processor",
+            "value": "fs-bpm-processor"
+          },
+          {
+            "selected": false,
+            "text": "fs-broker-checkins-provider",
+            "value": "fs-broker-checkins-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-broker-login-provider",
+            "value": "fs-broker-login-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-broker-material-provider",
+            "value": "fs-broker-material-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-broker-media-web",
+            "value": "fs-broker-media-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-broker-message-provider",
+            "value": "fs-broker-message-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-broker-oauth-provider",
+            "value": "fs-broker-oauth-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-broker-web",
+            "value": "fs-broker-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-bug-feedback",
+            "value": "fs-bug-feedback"
+          },
+          {
+            "selected": false,
+            "text": "fs-chconnector-provider",
+            "value": "fs-chconnector-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-checkins-biz",
+            "value": "fs-checkins-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-checkins-biz-gray",
+            "value": "fs-checkins-biz-gray"
+          },
+          {
+            "selected": false,
+            "text": "fs-checkins-biz-urgent",
+            "value": "fs-checkins-biz-urgent"
+          },
+          {
+            "selected": false,
+            "text": "fs-checkins-provider",
+            "value": "fs-checkins-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-client-dashboard",
+            "value": "fs-client-dashboard"
+          },
+          {
+            "selected": false,
+            "text": "fs-cloud-operation-biz",
+            "value": "fs-cloud-operation-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-cloud-operation-provider",
+            "value": "fs-cloud-operation-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm",
+            "value": "fs-crm"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-audit",
+            "value": "fs-crm-audit"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-fmcg",
+            "value": "fs-crm-fmcg"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-import",
+            "value": "fs-crm-import"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-integral",
+            "value": "fs-crm-integral"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-integral-task",
+            "value": "fs-crm-integral-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-provider",
+            "value": "fs-crm-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-rest",
+            "value": "fs-crm-rest"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-sfa",
+            "value": "fs-crm-sfa"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-task-web",
+            "value": "fs-crm-task-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-workflow",
+            "value": "fs-crm-workflow"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-workflow-console",
+            "value": "fs-crm-workflow-console"
+          },
+          {
+            "selected": false,
+            "text": "fs-crm-workflow-processor",
+            "value": "fs-crm-workflow-processor"
+          },
+          {
+            "selected": false,
+            "text": "fs-cross-enterprise-sharedisk",
+            "value": "fs-cross-enterprise-sharedisk"
+          },
+          {
+            "selected": false,
+            "text": "fs-customer-contract-provider",
+            "value": "fs-customer-contract-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-dataload-web",
+            "value": "fs-dataload-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-dataplatform-feed2gp-consumer",
+            "value": "fs-dataplatform-feed2gp-consumer"
+          },
+          {
+            "selected": false,
+            "text": "fs-dataplatform-lead-score-online",
+            "value": "fs-dataplatform-lead-score-online"
+          },
+          {
+            "selected": false,
+            "text": "fs-dataplatform-lead-score-online-http",
+            "value": "fs-dataplatform-lead-score-online-http"
+          },
+          {
+            "selected": false,
+            "text": "fs-dataplatform-metrics-producer",
+            "value": "fs-dataplatform-metrics-producer"
+          },
+          {
+            "selected": false,
+            "text": "fs-dataplatform-source-flag-graph",
+            "value": "fs-dataplatform-source-flag-graph"
+          },
+          {
+            "selected": false,
+            "text": "fs-datapt-employee-profiler",
+            "value": "fs-datapt-employee-profiler"
+          },
+          {
+            "selected": false,
+            "text": "fs-db-copier",
+            "value": "fs-db-copier"
+          },
+          {
+            "selected": false,
+            "text": "fs-db-metrics",
+            "value": "fs-db-metrics"
+          },
+          {
+            "selected": false,
+            "text": "fs-dingtalk-client",
+            "value": "fs-dingtalk-client"
+          },
+          {
+            "selected": false,
+            "text": "fs-dingtalk-provider",
+            "value": "fs-dingtalk-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-dingtalk-web",
+            "value": "fs-dingtalk-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-electronic-sign-web",
+            "value": "fs-electronic-sign-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-enterprise-admin-provider",
+            "value": "fs-enterprise-admin-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-enterprise-relation-all-provider",
+            "value": "fs-enterprise-relation-all-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-enterprise-relation-biz",
+            "value": "fs-enterprise-relation-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-enterprise-relation-task",
+            "value": "fs-enterprise-relation-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-es-admin",
+            "value": "fs-es-admin"
+          },
+          {
+            "selected": false,
+            "text": "fs-eservice-cases-provider",
+            "value": "fs-eservice-cases-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-eservice-cases-provider-gray",
+            "value": "fs-eservice-cases-provider-gray"
+          },
+          {
+            "selected": false,
+            "text": "fs-eservice-devices-provider",
+            "value": "fs-eservice-devices-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-eservice-devices-provider-gray",
+            "value": "fs-eservice-devices-provider-gray"
+          },
+          {
+            "selected": false,
+            "text": "fs-eservice-gray-provider",
+            "value": "fs-eservice-gray-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-eservice-proxy-provider",
+            "value": "fs-eservice-proxy-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-eservice-web",
+            "value": "fs-eservice-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-eye-backend",
+            "value": "fs-eye-backend"
+          },
+          {
+            "selected": false,
+            "text": "fs-eye-log2es",
+            "value": "fs-eye-log2es"
+          },
+          {
+            "selected": false,
+            "text": "fs-eye-reporting",
+            "value": "fs-eye-reporting"
+          },
+          {
+            "selected": false,
+            "text": "fs-eye-store-es",
+            "value": "fs-eye-store-es"
+          },
+          {
+            "selected": false,
+            "text": "fs-eye-store-mysql",
+            "value": "fs-eye-store-mysql"
+          },
+          {
+            "selected": false,
+            "text": "fs-feeds-adapter",
+            "value": "fs-feeds-adapter"
+          },
+          {
+            "selected": false,
+            "text": "fs-feeds-biz",
+            "value": "fs-feeds-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-feeds-notice",
+            "value": "fs-feeds-notice"
+          },
+          {
+            "selected": false,
+            "text": "fs-feeds-provider",
+            "value": "fs-feeds-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-feeds-search-datamgr-cluster",
+            "value": "fs-feeds-search-datamgr-cluster"
+          },
+          {
+            "selected": false,
+            "text": "fs-feeds-search-datamgr-index",
+            "value": "fs-feeds-search-datamgr-index"
+          },
+          {
+            "selected": false,
+            "text": "fs-feeds-search-datamgr-update",
+            "value": "fs-feeds-search-datamgr-update"
+          },
+          {
+            "selected": false,
+            "text": "fs-flow",
+            "value": "fs-flow"
+          },
+          {
+            "selected": false,
+            "text": "fs-flow-inspection",
+            "value": "fs-flow-inspection"
+          },
+          {
+            "selected": false,
+            "text": "fs-flow-session",
+            "value": "fs-flow-session"
+          },
+          {
+            "selected": false,
+            "text": "fs-fmcg-customized-excel",
+            "value": "fs-fmcg-customized-excel"
+          },
+          {
+            "selected": false,
+            "text": "fs-fmcg-efficiency-cgi",
+            "value": "fs-fmcg-efficiency-cgi"
+          },
+          {
+            "selected": false,
+            "text": "fs-fmcg-efficiency-cgi-urgent",
+            "value": "fs-fmcg-efficiency-cgi-urgent"
+          },
+          {
+            "selected": false,
+            "text": "fs-fxiaoke-connector",
+            "value": "fs-fxiaoke-connector"
+          },
+          {
+            "selected": false,
+            "text": "fs-hubble-query",
+            "value": "fs-hubble-query"
+          },
+          {
+            "selected": false,
+            "text": "fs-integral-provider-urgent",
+            "value": "fs-integral-provider-urgent"
+          },
+          {
+            "selected": false,
+            "text": "fs-integral-task",
+            "value": "fs-integral-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-invite-biz",
+            "value": "fs-invite-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-jdy-provider",
+            "value": "fs-jdy-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-jdy-task",
+            "value": "fs-jdy-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-jdy-web",
+            "value": "fs-jdy-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-job-admin",
+            "value": "fs-job-admin"
+          },
+          {
+            "selected": false,
+            "text": "fs-jsapi-fcpserver",
+            "value": "fs-jsapi-fcpserver"
+          },
+          {
+            "selected": false,
+            "text": "fs-k3cloud-provider",
+            "value": "fs-k3cloud-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-k3cloud-task",
+            "value": "fs-k3cloud-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-k3cloud-web",
+            "value": "fs-k3cloud-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-k8s-tomcat-test",
+            "value": "fs-k8s-tomcat-test"
+          },
+          {
+            "selected": false,
+            "text": "fs-k8s-web-shell",
+            "value": "fs-k8s-web-shell"
+          },
+          {
+            "selected": false,
+            "text": "fs-ka-data",
+            "value": "fs-ka-data"
+          },
+          {
+            "selected": false,
+            "text": "fs-kis-connector-provider",
+            "value": "fs-kis-connector-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-kis-connector-task",
+            "value": "fs-kis-connector-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-kis-connector-web",
+            "value": "fs-kis-connector-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-landray-oa-provider",
+            "value": "fs-landray-oa-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-landray-oa-web",
+            "value": "fs-landray-oa-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-livingroom",
+            "value": "fs-livingroom"
+          },
+          {
+            "selected": false,
+            "text": "fs-log-ui",
+            "value": "fs-log-ui"
+          },
+          {
+            "selected": false,
+            "text": "fs-logcenter-kafka-consumer",
+            "value": "fs-logcenter-kafka-consumer"
+          },
+          {
+            "selected": false,
+            "text": "fs-loki-router",
+            "value": "fs-loki-router"
+          },
+          {
+            "selected": false,
+            "text": "fs-mankeep-fsweb",
+            "value": "fs-mankeep-fsweb"
+          },
+          {
+            "selected": false,
+            "text": "fs-mankeep-miniapp",
+            "value": "fs-mankeep-miniapp"
+          },
+          {
+            "selected": false,
+            "text": "fs-mankeep-outweb",
+            "value": "fs-mankeep-outweb"
+          },
+          {
+            "selected": false,
+            "text": "fs-mankeep-provider",
+            "value": "fs-mankeep-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-mankeep-task",
+            "value": "fs-mankeep-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-mankeep-tool",
+            "value": "fs-mankeep-tool"
+          },
+          {
+            "selected": false,
+            "text": "fs-marketing-provider",
+            "value": "fs-marketing-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-marketing-qywx",
+            "value": "fs-marketing-qywx"
+          },
+          {
+            "selected": false,
+            "text": "fs-marketing-statistic-cache-provider",
+            "value": "fs-marketing-statistic-cache-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-marketing-statistic-provider",
+            "value": "fs-marketing-statistic-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-marketing-task",
+            "value": "fs-marketing-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-marketing-web",
+            "value": "fs-marketing-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-marketing-web-kis",
+            "value": "fs-marketing-web-kis"
+          },
+          {
+            "selected": false,
+            "text": "fs-meeting-assistant-bizserver",
+            "value": "fs-meeting-assistant-bizserver"
+          },
+          {
+            "selected": false,
+            "text": "fs-meeting-assistant-task",
+            "value": "fs-meeting-assistant-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-message-server",
+            "value": "fs-message-server"
+          },
+          {
+            "selected": false,
+            "text": "fs-message-server-gray",
+            "value": "fs-message-server-gray"
+          },
+          {
+            "selected": false,
+            "text": "fs-message-server-web",
+            "value": "fs-message-server-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-metadata-data",
+            "value": "fs-metadata-data"
+          },
+          {
+            "selected": false,
+            "text": "fs-metadata-for-refresh",
+            "value": "fs-metadata-for-refresh"
+          },
+          {
+            "selected": false,
+            "text": "fs-metadata-for-test",
+            "value": "fs-metadata-for-test"
+          },
+          {
+            "selected": false,
+            "text": "fs-metadata-rest",
+            "value": "fs-metadata-rest"
+          },
+          {
+            "selected": false,
+            "text": "fs-monitor-alarm",
+            "value": "fs-monitor-alarm"
+          },
+          {
+            "selected": false,
+            "text": "fs-monitor-judge",
+            "value": "fs-monitor-judge"
+          },
+          {
+            "selected": false,
+            "text": "fs-monitor-web",
+            "value": "fs-monitor-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-myfavourites-biz",
+            "value": "fs-myfavourites-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-myfavourites-provider",
+            "value": "fs-myfavourites-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-notice",
+            "value": "fs-notice"
+          },
+          {
+            "selected": false,
+            "text": "fs-oauth-base-provider",
+            "value": "fs-oauth-base-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-online-consult-communication",
+            "value": "fs-online-consult-communication"
+          },
+          {
+            "selected": false,
+            "text": "fs-online-consult-core",
+            "value": "fs-online-consult-core"
+          },
+          {
+            "selected": false,
+            "text": "fs-online-consult-fcp",
+            "value": "fs-online-consult-fcp"
+          },
+          {
+            "selected": false,
+            "text": "fs-online-consult-message-proxy",
+            "value": "fs-online-consult-message-proxy"
+          },
+          {
+            "selected": false,
+            "text": "fs-online-consult-resolver",
+            "value": "fs-online-consult-resolver"
+          },
+          {
+            "selected": false,
+            "text": "fs-online-consult-web",
+            "value": "fs-online-consult-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-app-center-provider",
+            "value": "fs-open-app-center-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-app-center-web",
+            "value": "fs-open-app-center-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-app-manage",
+            "value": "fs-open-app-manage"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-assets-upload",
+            "value": "fs-open-assets-upload"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-assets-web",
+            "value": "fs-open-assets-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-call-center-web",
+            "value": "fs-open-call-center-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-center-fcp-provider",
+            "value": "fs-open-center-fcp-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-huawei-gateway",
+            "value": "fs-open-huawei-gateway"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-isv-web",
+            "value": "fs-open-isv-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-jobs-executor",
+            "value": "fs-open-jobs-executor"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-login-web",
+            "value": "fs-open-login-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-material-web",
+            "value": "fs-open-material-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-msg",
+            "value": "fs-open-msg"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-msg-autoreply",
+            "value": "fs-open-msg-autoreply"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-msg-export-provider",
+            "value": "fs-open-msg-export-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-msg-web",
+            "value": "fs-open-msg-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-operation-support",
+            "value": "fs-open-operation-support"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-platform-manager-connector",
+            "value": "fs-open-platform-manager-connector"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-warehouse-provider",
+            "value": "fs-open-warehouse-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-webhook-accountbind",
+            "value": "fs-open-webhook-accountbind"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-webhook-accountsync",
+            "value": "fs-open-webhook-accountsync"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-webhook-eventhandler",
+            "value": "fs-open-webhook-eventhandler"
+          },
+          {
+            "selected": false,
+            "text": "fs-open-webhook-message-send",
+            "value": "fs-open-webhook-message-send"
+          },
+          {
+            "selected": false,
+            "text": "fs-openapi-debug",
+            "value": "fs-openapi-debug"
+          },
+          {
+            "selected": false,
+            "text": "fs-organization-adapter",
+            "value": "fs-organization-adapter"
+          },
+          {
+            "selected": false,
+            "text": "fs-organization-adapter-hj",
+            "value": "fs-organization-adapter-hj"
+          },
+          {
+            "selected": false,
+            "text": "fs-organization-biz",
+            "value": "fs-organization-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-organization-provider",
+            "value": "fs-organization-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-app-task",
+            "value": "fs-paas-app-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-app-udobj-rest",
+            "value": "fs-paas-app-udobj-rest"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-auth-copier",
+            "value": "fs-paas-auth-copier"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-auth-provider",
+            "value": "fs-paas-auth-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-batch-web",
+            "value": "fs-paas-batch-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-calculate-task",
+            "value": "fs-paas-calculate-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-dataloader",
+            "value": "fs-paas-dataloader"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-datarights",
+            "value": "fs-paas-datarights"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-function-service-debug",
+            "value": "fs-paas-function-service-debug"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-function-service-runtime",
+            "value": "fs-paas-function-service-runtime"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-job-schedule",
+            "value": "fs-paas-job-schedule"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-license",
+            "value": "fs-paas-license"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-license-sync",
+            "value": "fs-paas-license-sync"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-message",
+            "value": "fs-paas-message"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-metadata-dataloader",
+            "value": "fs-paas-metadata-dataloader"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-org",
+            "value": "fs-paas-org"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-recycle",
+            "value": "fs-paas-recycle"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-refresh-fmcg",
+            "value": "fs-paas-refresh-fmcg"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-refresh-forest",
+            "value": "fs-paas-refresh-forest"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-refresh-menu",
+            "value": "fs-paas-refresh-menu"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-refresh-sfa",
+            "value": "fs-paas-refresh-sfa"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-rule",
+            "value": "fs-paas-rule"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-score",
+            "value": "fs-paas-score"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-syncer-mq2db",
+            "value": "fs-paas-syncer-mq2db"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-web",
+            "value": "fs-paas-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-workflow",
+            "value": "fs-paas-workflow"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-workflow-console",
+            "value": "fs-paas-workflow-console"
+          },
+          {
+            "selected": false,
+            "text": "fs-paas-workflow-processor",
+            "value": "fs-paas-workflow-processor"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-announce",
+            "value": "fs-pay-announce"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-async-msg-provider",
+            "value": "fs-pay-async-msg-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-bank-provider",
+            "value": "fs-pay-bank-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-bill-provider",
+            "value": "fs-pay-bill-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-business-provider",
+            "value": "fs-pay-business-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-callback",
+            "value": "fs-pay-callback"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-fcpserver",
+            "value": "fs-pay-fcpserver"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-logprocess-provider",
+            "value": "fs-pay-logprocess-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-manage",
+            "value": "fs-pay-manage"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-notice-provider",
+            "value": "fs-pay-notice-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-tob-business-provider",
+            "value": "fs-pay-tob-business-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-tob-callback",
+            "value": "fs-pay-tob-callback"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-toc-bank",
+            "value": "fs-pay-toc-bank"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-toc-broker",
+            "value": "fs-pay-toc-broker"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-toc-business",
+            "value": "fs-pay-toc-business"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-toc-callback",
+            "value": "fs-pay-toc-callback"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-toc-gateway",
+            "value": "fs-pay-toc-gateway"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-toc-luck-money",
+            "value": "fs-pay-toc-luck-money"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-toc-luck-money-callback",
+            "value": "fs-pay-toc-luck-money-callback"
+          },
+          {
+            "selected": false,
+            "text": "fs-pay-toc-order",
+            "value": "fs-pay-toc-order"
+          },
+          {
+            "selected": false,
+            "text": "fs-pidops",
+            "value": "fs-pidops"
+          },
+          {
+            "selected": false,
+            "text": "fs-plat-app-view-biz",
+            "value": "fs-plat-app-view-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-plat-app-view-cgi",
+            "value": "fs-plat-app-view-cgi"
+          },
+          {
+            "selected": false,
+            "text": "fs-plat-cloud-login-cgi",
+            "value": "fs-plat-cloud-login-cgi"
+          },
+          {
+            "selected": false,
+            "text": "fs-plat-cloud-login-provider",
+            "value": "fs-plat-cloud-login-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-plat-netdisk-biz",
+            "value": "fs-plat-netdisk-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-plat-netdisk-provider",
+            "value": "fs-plat-netdisk-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-plat-org-adapter-provider",
+            "value": "fs-plat-org-adapter-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-plat-register-cgi",
+            "value": "fs-plat-register-cgi"
+          },
+          {
+            "selected": false,
+            "text": "fs-plat-report-cgi",
+            "value": "fs-plat-report-cgi"
+          },
+          {
+            "selected": false,
+            "text": "fs-plat-sandbox-cgi",
+            "value": "fs-plat-sandbox-cgi"
+          },
+          {
+            "selected": false,
+            "text": "fs-plat-sandbox-provider",
+            "value": "fs-plat-sandbox-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-pod-console",
+            "value": "fs-pod-console"
+          },
+          {
+            "selected": false,
+            "text": "fs-portal-admin",
+            "value": "fs-portal-admin"
+          },
+          {
+            "selected": false,
+            "text": "fs-portal-provider",
+            "value": "fs-portal-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-qixin-business-broker",
+            "value": "fs-qixin-business-broker"
+          },
+          {
+            "selected": false,
+            "text": "fs-qixin-objgroup-manage-biz",
+            "value": "fs-qixin-objgroup-manage-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-qixin-objgroup-manage-provider",
+            "value": "fs-qixin-objgroup-manage-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-qixin-push-broker",
+            "value": "fs-qixin-push-broker"
+          },
+          {
+            "selected": false,
+            "text": "fs-qixin-search-message-biz",
+            "value": "fs-qixin-search-message-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-qixin-search-message-provider",
+            "value": "fs-qixin-search-message-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-qixin-task-provider",
+            "value": "fs-qixin-task-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-ratecontorl-provider",
+            "value": "fs-ratecontorl-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-ratecontrol-web",
+            "value": "fs-ratecontrol-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-risk-admin",
+            "value": "fs-risk-admin"
+          },
+          {
+            "selected": false,
+            "text": "fs-risk-dataprocessing-provider",
+            "value": "fs-risk-dataprocessing-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-risk-rulesengine-provider",
+            "value": "fs-risk-rulesengine-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-risk-storage-provider",
+            "value": "fs-risk-storage-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-sail-admin",
+            "value": "fs-sail-admin"
+          },
+          {
+            "selected": false,
+            "text": "fs-sail-wechat",
+            "value": "fs-sail-wechat"
+          },
+          {
+            "selected": false,
+            "text": "fs-salarybill",
+            "value": "fs-salarybill"
+          },
+          {
+            "selected": false,
+            "text": "fs-scheduler-task-provider",
+            "value": "fs-scheduler-task-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-social-feeds",
+            "value": "fs-social-feeds"
+          },
+          {
+            "selected": false,
+            "text": "fs-social-task",
+            "value": "fs-social-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-ssh-discmd",
+            "value": "fs-ssh-discmd"
+          },
+          {
+            "selected": false,
+            "text": "fs-sso-manage-web",
+            "value": "fs-sso-manage-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-sso-provider",
+            "value": "fs-sso-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-sso-web",
+            "value": "fs-sso-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-stage-propeller",
+            "value": "fs-stage-propeller"
+          },
+          {
+            "selected": false,
+            "text": "fs-stage-propeller-processor",
+            "value": "fs-stage-propeller-processor"
+          },
+          {
+            "selected": false,
+            "text": "fs-stone-admin",
+            "value": "fs-stone-admin"
+          },
+          {
+            "selected": false,
+            "text": "fs-stone-audioserver",
+            "value": "fs-stone-audioserver"
+          },
+          {
+            "selected": false,
+            "text": "fs-stone-cgi",
+            "value": "fs-stone-cgi"
+          },
+          {
+            "selected": false,
+            "text": "fs-stone-dataserver",
+            "value": "fs-stone-dataserver"
+          },
+          {
+            "selected": false,
+            "text": "fs-stone-exaccountserver",
+            "value": "fs-stone-exaccountserver"
+          },
+          {
+            "selected": false,
+            "text": "fs-stone-fileserver",
+            "value": "fs-stone-fileserver"
+          },
+          {
+            "selected": false,
+            "text": "fs-stone-jobserver",
+            "value": "fs-stone-jobserver"
+          },
+          {
+            "selected": false,
+            "text": "fs-stone-metaserver",
+            "value": "fs-stone-metaserver"
+          },
+          {
+            "selected": false,
+            "text": "fs-stone-proxy",
+            "value": "fs-stone-proxy"
+          },
+          {
+            "selected": false,
+            "text": "fs-stone-thumbnail-proxy",
+            "value": "fs-stone-thumbnail-proxy"
+          },
+          {
+            "selected": false,
+            "text": "fs-stone-upload-consumer",
+            "value": "fs-stone-upload-consumer"
+          },
+          {
+            "selected": false,
+            "text": "fs-sync-data-all",
+            "value": "fs-sync-data-all"
+          },
+          {
+            "selected": false,
+            "text": "fs-sync-data-task",
+            "value": "fs-sync-data-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-testcase-runner",
+            "value": "fs-testcase-runner"
+          },
+          {
+            "selected": false,
+            "text": "fs-training-manager",
+            "value": "fs-training-manager"
+          },
+          {
+            "selected": false,
+            "text": "fs-training-outer-web",
+            "value": "fs-training-outer-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-training-provider",
+            "value": "fs-training-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-training-task",
+            "value": "fs-training-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-training-web",
+            "value": "fs-training-web"
+          },
+          {
+            "selected": false,
+            "text": "fs-uc-biz",
+            "value": "fs-uc-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-user-extension-biz",
+            "value": "fs-user-extension-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-user-login-biz",
+            "value": "fs-user-login-biz"
+          },
+          {
+            "selected": false,
+            "text": "fs-video-processor",
+            "value": "fs-video-processor"
+          },
+          {
+            "selected": false,
+            "text": "fs-video-provider",
+            "value": "fs-video-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-video-uploader",
+            "value": "fs-video-uploader"
+          },
+          {
+            "selected": false,
+            "text": "fs-webpage-customer-provider",
+            "value": "fs-webpage-customer-provider"
+          },
+          {
+            "selected": false,
+            "text": "fs-wechat-proxy-callback",
+            "value": "fs-wechat-proxy-callback"
+          },
+          {
+            "selected": false,
+            "text": "fs-wechat-sender-task",
+            "value": "fs-wechat-sender-task"
+          },
+          {
+            "selected": false,
+            "text": "fs-wechat-union-all",
+            "value": "fs-wechat-union-all"
+          },
+          {
+            "selected": false,
+            "text": "fs-workflow",
+            "value": "fs-workflow"
+          },
+          {
+            "selected": false,
+            "text": "fs-workflow-console",
+            "value": "fs-workflow-console"
+          },
+          {
+            "selected": false,
+            "text": "fs-worldgroup-requisition-web",
+            "value": "fs-worldgroup-requisition-web"
+          },
+          {
+            "selected": false,
+            "text": "i18n-cgi",
+            "value": "i18n-cgi"
+          },
+          {
+            "selected": false,
+            "text": "ibss-crm-sync",
+            "value": "ibss-crm-sync"
+          },
+          {
+            "selected": false,
+            "text": "ibss-service-xms-provider",
+            "value": "ibss-service-xms-provider"
+          },
+          {
+            "selected": false,
+            "text": "ibss-site-dc",
+            "value": "ibss-site-dc"
+          },
+          {
+            "selected": false,
+            "text": "index-server",
+            "value": "index-server"
+          },
+          {
+            "selected": false,
+            "text": "jdy-connector-service",
+            "value": "jdy-connector-service"
+          },
+          {
+            "selected": false,
+            "text": "jenkins-msg",
+            "value": "jenkins-msg"
+          },
+          {
+            "selected": false,
+            "text": "log-level-manager",
+            "value": "log-level-manager"
+          },
+          {
+            "selected": false,
+            "text": "luck-money-biz",
+            "value": "luck-money-biz"
+          },
+          {
+            "selected": false,
+            "text": "lucky-money-broker",
+            "value": "lucky-money-broker"
+          },
+          {
+            "selected": false,
+            "text": "msg-center",
+            "value": "msg-center"
+          },
+          {
+            "selected": false,
+            "text": "open-msg-wechat-converter",
+            "value": "open-msg-wechat-converter"
+          },
+          {
+            "selected": false,
+            "text": "openapi-biz-collaboration-addressbook-provider",
+            "value": "openapi-biz-collaboration-addressbook-provider"
+          },
+          {
+            "selected": false,
+            "text": "openapi-biz-collaboration-approval-provider",
+            "value": "openapi-biz-collaboration-approval-provider"
+          },
+          {
+            "selected": false,
+            "text": "openapi-biz-collaboration-checkins-provider",
+            "value": "openapi-biz-collaboration-checkins-provider"
+          },
+          {
+            "selected": false,
+            "text": "openapi-biz-collaboration-message-provider",
+            "value": "openapi-biz-collaboration-message-provider"
+          },
+          {
+            "selected": false,
+            "text": "openapi-broker-collaboration-media-web",
+            "value": "openapi-broker-collaboration-media-web"
+          },
+          {
+            "selected": false,
+            "text": "openapi-broker-collaboration-web",
+            "value": "openapi-broker-collaboration-web"
+          },
+          {
+            "selected": false,
+            "text": "openapi-event-callback-listener",
+            "value": "openapi-event-callback-listener"
+          },
+          {
+            "selected": false,
+            "text": "openapi-event-callback-push",
+            "value": "openapi-event-callback-push"
+          },
+          {
+            "selected": false,
+            "text": "openapi-event-callback-register",
+            "value": "openapi-event-callback-register"
+          },
+          {
+            "selected": false,
+            "text": "openapi-privilege-control-provider",
+            "value": "openapi-privilege-control-provider"
+          },
+          {
+            "selected": false,
+            "text": "openapi-rate-control-provider",
+            "value": "openapi-rate-control-provider"
+          },
+          {
+            "selected": false,
+            "text": "paas-bi-copier",
+            "value": "paas-bi-copier"
+          },
+          {
+            "selected": false,
+            "text": "paas-console",
+            "value": "paas-console"
+          },
+          {
+            "selected": false,
+            "text": "paas-db-backup",
+            "value": "paas-db-backup"
+          },
+          {
+            "selected": false,
+            "text": "paas-db-delete",
+            "value": "paas-db-delete"
+          },
+          {
+            "selected": false,
+            "text": "paas-db-operator",
+            "value": "paas-db-operator"
+          },
+          {
+            "selected": false,
+            "text": "paas-db-split",
+            "value": "paas-db-split"
+          },
+          {
+            "selected": false,
+            "text": "paas-db-statistic",
+            "value": "paas-db-statistic"
+          },
+          {
+            "selected": false,
+            "text": "paas-pg-scanner",
+            "value": "paas-pg-scanner"
+          },
+          {
+            "selected": false,
+            "text": "paas-pg2es-syncer",
+            "value": "paas-pg2es-syncer"
+          },
+          {
+            "selected": false,
+            "text": "paas2bi-compare-refresh",
+            "value": "paas2bi-compare-refresh"
+          },
+          {
+            "selected": false,
+            "text": "pg-scanner-ui",
+            "value": "pg-scanner-ui"
+          },
+          {
+            "selected": false,
+            "text": "ping-monitor-service",
+            "value": "ping-monitor-service"
+          },
+          {
+            "selected": false,
+            "text": "pod-console",
+            "value": "pod-console"
+          },
+          {
+            "selected": false,
+            "text": "process-monitor",
+            "value": "process-monitor"
+          },
+          {
+            "selected": false,
+            "text": "qywx-account-bind-provider",
+            "value": "qywx-account-bind-provider"
+          },
+          {
+            "selected": false,
+            "text": "qywx-account-sync-provider",
+            "value": "qywx-account-sync-provider"
+          },
+          {
+            "selected": false,
+            "text": "qywx-event-handler-web",
+            "value": "qywx-event-handler-web"
+          },
+          {
+            "selected": false,
+            "text": "qywx-message-send-provider",
+            "value": "qywx-message-send-provider"
+          },
+          {
+            "selected": false,
+            "text": "simple-http-proxy",
+            "value": "simple-http-proxy"
+          },
+          {
+            "selected": false,
+            "text": "svc-checkins-office-provider",
+            "value": "svc-checkins-office-provider"
+          },
+          {
+            "selected": false,
+            "text": "tenant-sandbox",
+            "value": "tenant-sandbox"
+          },
+          {
+            "selected": false,
+            "text": "transfer-console",
+            "value": "transfer-console"
+          },
+          {
+            "selected": false,
+            "text": "user-center",
+            "value": "user-center"
+          },
+          {
+            "selected": false,
+            "text": "weex-console-service",
+            "value": "weex-console-service"
+          },
+          {
+            "selected": false,
+            "text": "wuzh-test",
+            "value": "wuzh-test"
+          },
+          {
+            "selected": false,
+            "text": "xxl-job-es-aggregate",
+            "value": "xxl-job-es-aggregate"
+          }
+        ],
+        "query": "label_values(jvm_info{job=~\"$cluster-jvm-exporter\"}, app_name)",
+        "refresh": 0,
+        "regex": "",
+        "skipUrlSync": false,
+        "sort": 0,
+        "tagValuesQuery": "",
+        "tags": [],
+        "tagsQuery": "",
+        "type": "query",
+        "useTags": false
+      }
+    ]
+  },
+  "time": {
+    "from": "now-2h",
+    "to": "now"
+  },
+  "timepicker": {
+    "refresh_intervals": [
+      "5s",
+      "10s",
+      "30s",
+      "1m",
+      "5m",
+      "15m",
+      "30m",
+      "1h",
+      "2h",
+      "1d"
+    ],
+    "time_options": [
+      "5m",
+      "15m",
+      "1h",
+      "6h",
+      "12h",
+      "24h",
+      "2d",
+      "7d",
+      "30d"
+    ]
+  },
+  "timezone": "",
+  "title": "k8s监控",
+  "uid": "k8sjk",
+  "variables": {
+    "list": []
+  },
+  "version": 7
+}

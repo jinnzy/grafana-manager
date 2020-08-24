@@ -18,3 +18,6 @@ ksc_import:
     GRAFANA_URL: "http://ksc-prod.foneshare.cn/grafana"
   script:
     - grafana-manager --url "http://172.31.107.24:38082/" -u admin -p admin import dashboard ./grafana-dashboard-definitions/common
+stages:
+  - go_build
+  - import

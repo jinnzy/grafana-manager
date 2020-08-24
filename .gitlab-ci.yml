@@ -2,7 +2,7 @@ build:
   image: reg.firstshare.cn/base/fs-golang:1.13
   stage: go_build
   tags:
-    - docker-build
+    - k8s-deploy
   script:
     - "go env -w GOPROXY=https://goproxy.cn,direct"
     - "CGO_ENABLED=0"
@@ -13,7 +13,7 @@ build:
 ksc_import:
   stage: import
   tags:
-    - import
+    - k8s-deploy
   variables:
     GRAFANA_URL: "http://ksc-prod.foneshare.cn/grafana"
   script:

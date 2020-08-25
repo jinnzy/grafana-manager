@@ -13,7 +13,7 @@ build:
     - "GOOS=linux"
     - " go build -o grafana-manager ./cmd/manager"
     - "chmod +x grafana-manager"
-    - grafana-manager --url "http://172.31.107.24:38082/" -u admin -p admin import dashboard ./grafana-dashboard-definitions/common
+    - ./grafana-manager --url "http://172.31.107.24:38082/" -u admin -p admin import dashboard ./grafana-dashboard-definitions/common
 
 
 stages:

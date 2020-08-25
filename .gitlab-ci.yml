@@ -13,19 +13,8 @@ build:
     - "GOOS=linux"
     - " go build -o grafana-manager ./cmd/manager"
     - "chmod +x grafana-manager"
-
-ksc_import:
-  cache:
-    paths:
-      - grafana-manager
-    policy: pull
-  stage: import
-  tags:
-    - k8s-deploy
-  variables:
-    GRAFANA_URL: "http://ksc-prod.foneshare.cn/grafana"
-  script:
     - grafana-manager --url "http://172.31.107.24:38082/" -u admin -p admin import dashboard ./grafana-dashboard-definitions/common
+
+
 stages:
   - go_build
-  - import

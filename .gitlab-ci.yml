@@ -1,6 +1,6 @@
 cache:
   paths:
-    - ./grafana-manager
+    - grafana-manager
 
 build:
   image: reg.firstshare.cn/base/fs-golang:1.13
@@ -15,6 +15,10 @@ build:
     - "chmod +x grafana-manager"
 
 ksc_import:
+  cache:
+    paths:
+      - grafana-manager
+    policy: pull
   stage: import
   tags:
     - k8s-deploy

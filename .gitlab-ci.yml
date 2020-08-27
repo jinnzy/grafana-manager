@@ -2,9 +2,14 @@ cache:
   paths:
     - grafana-manager
 
-build:
+ksc_k8s1:
   image: reg.firstshare.cn/base/fs-golang:1.13
   stage: go_build
+  variables:
+    es_url: "http://10.205.41.205:9200"
+    es_user: "elastic"
+    es_password: "ObUY87jvJNXxHsiL2vBs"
+    grafana_url: "http://ksc-prod.foneshare.cn/grafana"
   tags:
     - k8s-deploy
   script:
@@ -13,7 +18,13 @@ build:
     - "GOOS=linux"
     - " go build -o grafana-manager ./cmd/manager"
     - "chmod +x grafana-manager"
-    - ./grafana-manager --url "http://172.31.107.24:38082/" -u admin -p admin import dashboard ./grafana-dashboard-definitions/common
+    - sed -i "s/{{\s*ES_URL\s*}}/$es_url/g" ./grafana-dashboard-definitions/datasource/*.json
+    - sed -i "s/{{\s*ES_USER\s*}}/$es_url/g" ./grafana-dashboard-definitions/datasource/*.json
+    - sed -i "s/{{\s*ES_PASSWORD\s*}}/$es_password/g" ./grafana-dashboard-definitions/datasource/*.json
+    - ./grafana-manager --url "$grafana_url" -u admin -p admin import dashboard ./grafana-dashboard-definitions/common
+    - ./grafana-manager --url "$grafana_url" -u admin -p admin import dashboard ./grafana-dashboard-definitions/k8s
+    - ./grafana-manager --url "$grafana_url" -u admin -p admin import dashboard ./grafana-dashboard-definitions/k8s-system
+    - ./grafana-manager --url "$grafana_url" -u admin -p admin import datasource ./grafana-dashboard-definitions/datasource
 
 
 stages:

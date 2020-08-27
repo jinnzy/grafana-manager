@@ -9,7 +9,7 @@
   "user":"",
   "database":"rpc-*",
   "basicAuth":true,
-  "basicAuthUser":"{{ES_URL}}",
+  "basicAuthUser":"{{ES_USER}}",
   "basicAuthPassword":"",
   "withCredentials":false,
   "isDefault":false,

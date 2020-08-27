@@ -18,9 +18,9 @@ ksc_k8s1:
     - "GOOS=linux"
     - " go build -o grafana-manager ./cmd/manager"
     - "chmod +x grafana-manager"
-    - sed -i "s/{{\s*ES_URL\s*}}/${es_url}/g" ./grafana-dashboard-definitions/datasource/*.json
-    - sed -i "s/{{\s*ES_USER\s*}}/${es_user}/g" ./grafana-dashboard-definitions/datasource/*.json
-    - sed -i "s/{{\s*ES_PASSWORD\s*}}/${es_password}/g" ./grafana-dashboard-definitions/datasource/*.json
+    - sed -i "s#{{\s*ES_URL\s*}}#${es_url}#g" ./grafana-dashboard-definitions/datasource/*.json
+    - sed -i "s#{{\s*ES_USER\s*}}#${es_user}#g" ./grafana-dashboard-definitions/datasource/*.json
+    - sed -i "s#{{\s*ES_PASSWORD\s*}}#${es_password}#g" ./grafana-dashboard-definitions/datasource/*.json
     - ./grafana-manager --url "${grafana_url}" -u admin -p admin import dashboard ./grafana-dashboard-definitions/common
     - ./grafana-manager --url "${grafana_url}" -u admin -p admin import dashboard ./grafana-dashboard-definitions/k8s
     - ./grafana-manager --url "${grafana_url}" -u admin -p admin import dashboard ./grafana-dashboard-definitions/k8s-system

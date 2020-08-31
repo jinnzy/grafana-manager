@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"github.com/grafana-tools/sdk"
+	"grafana-manager/pkg/logger"
 	"io/ioutil"
 	"log"
 	"net/url"
@@ -26,14 +27,14 @@ func (m *Manager)ImportDashboard(dir string)  {
 	c := sdk.NewClient(m.URL, m.BasicAuthOrToken, sdk.DefaultHTTPClient)
 	filesInDir, err = ioutil.ReadDir(dir)
 	if err != nil {
-		log.Fatal(err)
+		logger.Fatal(err)
 	}
 	searchParams := sdk.SearchParam(func(values *url.Values) {
 		values.Add("query",baseDir)
 	})
 	data, err := c.Search(ctx, searchParams)
 	if err != nil {
-		log.Println("get folder err: ", err)
+		logger.Errorf("get folder err: ", err)
 	}
 	if len(data) == 0 {
 		if baseDir == "" || baseDir == "." {
@@ -58,16 +59,16 @@ func (m *Manager)ImportDashboard(dir string)  {
 		if strings.HasSuffix(file.Name(), ".json") {
 			// 遍历得到的只是文件名，加上目录组合成相对路径。
 			if rawBoard, err = ioutil.ReadFile(filepath.Join(dir,file.Name())); err != nil {
-				log.Println(err)
+				logger.Errorf("read file %s err: %s", filepath.Join(dir,file.Name()), err)
 				continue
 			}
 			var board sdk.Board
 			if err = json.Unmarshal(rawBoard, &board); err != nil {
-				log.Println(err)
+				logger.Errorf("unmarshal %s err: %s", filepath.Join(dir,file.Name()),err)
 				continue
 			}
 			if _, err = c.DeleteDashboard(ctx, board.UpdateSlug()); err != nil {
-				log.Println(err)
+				logger.Errorf( "error on deleting dashboard  %s with %s", filepath.Join(dir,file.Name()), err)
 				continue
 			}
 			params := sdk.SetDashboardParams{
@@ -76,7 +77,7 @@ func (m *Manager)ImportDashboard(dir string)  {
 			}
 			_, err := c.SetDashboard(ctx, board, params)
 			if err != nil {
-				log.Printf("error on importing dashboard %s. err: %s", board.Title, err.Error())
+				logger.Errorf("error on importing dashboard %s. err: %s", board.Title, err.Error())
 				continue
 			}
 		}
@@ -95,7 +96,7 @@ func (m *Manager)ImportDatasource(dir string)  {
 	ctx := context.Background()
 	c := sdk.NewClient(m.URL, m.BasicAuthOrToken, sdk.DefaultHTTPClient)
 	if datasources, err = c.GetAllDatasources(ctx); err != nil {
-		fmt.Fprint(os.Stderr, err)
+		logger.Errorf("import data source err: %s", err)
 		os.Exit(1)
 	}
 	filesInDir, err = ioutil.ReadDir(dir)
@@ -105,24 +106,24 @@ func (m *Manager)ImportDatasource(dir string)  {
 	for _, file := range filesInDir {
 		if strings.HasSuffix(file.Name(), ".json") {
 			if rawDS, err = ioutil.ReadFile(filepath.Join(dir,file.Name())); err != nil {
-				fmt.Fprint(os.Stderr, err)
+				logger.Errorf("read file %s err: %s", filepath.Join(dir,file.Name()),err)
 				continue
 			}
 			var newDS sdk.Datasource
 			if err = json.Unmarshal(rawDS, &newDS); err != nil {
-				fmt.Fprint(os.Stderr, err)
+				logger.Errorf("unmarshal %s err: %s", filepath.Join(dir,file.Name()),err)
 				continue
 			}
 			for _, existingDS := range datasources {
 				if existingDS.Name == newDS.Name {
 					if status, err = c.DeleteDatasource(ctx, existingDS.ID); err != nil {
-						fmt.Fprintf(os.Stderr, "error on deleting datasource %s with %s", newDS.Name, err)
+						logger.Errorf( "error on deleting datasource %s with %s", newDS.Name, err)
 					}
 					break
 				}
 			}
 			if status, err = c.CreateDatasource(ctx, newDS); err != nil {
-				fmt.Fprintf(os.Stderr, "error on importing datasource %s with %s (%s)", newDS.Name, err, *status.Message)
+				logger.Errorf("error on importing datasource %s with %s (%s)", newDS.Name, err, *status.Message)
 			}
 		}
 	}

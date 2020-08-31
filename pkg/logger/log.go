@@ -1,4 +1,4 @@
-package log
+package logger
 
 import (
 	"go.uber.org/zap"
@@ -39,11 +39,11 @@ func newEncoderConfig() zapcore.EncoderConfig {
 	}
 }
 
-func Init(conf *Config) {
+func Init(runMode string) {
 
 	var level zapcore.Level
 
-	switch conf.RunMode {
+	switch runMode {
 	case "debug":
 		level = zap.DebugLevel
 	case "info":

@@ -60,7 +60,7 @@ func Init(runMode string) {
 		DisableStacktrace: true,
 		Encoding: "console", // json / console
 		EncoderConfig: newEncoderConfig(),
-		InitialFields: map[string]interface{}{"MyName": "kainhuck"},
+		//InitialFields: map[string]interface{}{"MyName": "kainhuck"},
 		OutputPaths: []string{"stdout"},
 		ErrorOutputPaths: []string{"stdout"},
 	}

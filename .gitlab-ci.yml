@@ -38,10 +38,11 @@ ucd_k8s2:
   tags:
     - k8s-deploy
   script:
-    - "go env -w GOPROXY=https://goproxy.cn,direct"
-    - "CGO_ENABLED=0"
-    - "GOOS=linux"
-    - " go build -o grafana-manager ./cmd/manager"
+#    - "go env -w GOPROXY=https://goproxy.cn,direct"
+#    - "CGO_ENABLED=0"
+#    - "GOOS=linux"
+#    - " go build -o grafana-manager ./cmd/manager"
+    - ls -l
     - "chmod +x grafana-manager"
     - echo ${es_url}
     - sed -i "s#{{\s*ES_URL\s*}}#${es_url}#g" ./grafana-dashboard-definitions/datasource/*.json

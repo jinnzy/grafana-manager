@@ -15,6 +15,7 @@ ksc_k8s1:
   script:
     - "go env -w GOPROXY=https://goproxy.cn,direct"
     - "CGO_ENABLED=0"
+    - "GO111MODULE=on"
     - "GOOS=linux"
     - " go build -o grafana-manager ./cmd/manager"
     - "chmod +x grafana-manager"

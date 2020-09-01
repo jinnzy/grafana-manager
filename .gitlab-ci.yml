@@ -1,6 +1,6 @@
-cache:
-  paths:
-    - grafana-manager
+#cache:
+#  paths:
+#    - grafana-manager
 
 ksc_k8s1:
   image: reg.firstshare.cn/base/fs-golang:1.13

@@ -57,6 +57,18 @@ func (m *Manager)ImportDashboard(dir string)  {
 
 	for _, file := range filesInDir {
 		if strings.HasSuffix(file.Name(), ".json") {
+
+			//if rawBoard, err = ioutil.ReadFile(filepath.Join(dir,file.Name())); err != nil {
+			//	log.Println(err)
+			//	continue
+			//}
+			//_, err := c.SetRawDashboard(ctx, rawBoard)
+			//if err != nil {
+			//	log.Printf("error on importing dashboard from %s", file.Name())
+			//	continue
+			//}
+
+
 			// 遍历得到的只是文件名，加上目录组合成相对路径。
 			if rawBoard, err = ioutil.ReadFile(filepath.Join(dir,file.Name())); err != nil {
 				logger.Errorf("read file %s err: %s", filepath.Join(dir,file.Name()), err)
@@ -71,11 +83,13 @@ func (m *Manager)ImportDashboard(dir string)  {
 				logger.Errorf( "error on deleting dashboard  %s with %s", filepath.Join(dir,file.Name()), err)
 				continue
 			}
+
 			params := sdk.SetDashboardParams{
 				FolderID:  folderID,
 				Overwrite: false,
 			}
 			_, err := c.SetDashboard(ctx, board, params)
+			//_, err := c.SetRawDashboard(ctx, board, params)
 			if err != nil {
 				logger.Errorf("error on importing dashboard %s. err: %s", board.Title, err.Error())
 				continue

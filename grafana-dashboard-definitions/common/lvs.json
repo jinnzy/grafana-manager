@@ -993,7 +993,7 @@
           ]
         },
         "datasource": "prometheus",
-        "definition": "query_result(machine_role{role=\"keepalived\"} * on(host)  group_left(instance) node_load1)",
+        "definition": "query_result(machine_role{role=\"keepalived\"} * on(host)  group_right node_load1)",
         "hide": 0,
         "includeAll": true,
         "index": -1,
@@ -1001,7 +1001,7 @@
         "multi": true,
         "name": "host",
         "options": [],
-        "query": "query_result(machine_role{role=\"keepalived\"} * on(host)  group_left(instance) node_load1)",
+        "query": "query_result(machine_role{role=\"keepalived\"} * on(host)  group_right node_load1)",
         "refresh": 1,
         "regex": "/.*host=\"(.*)\",instance.*/",
         "skipUrlSync": false,
